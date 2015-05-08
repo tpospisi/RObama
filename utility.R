@@ -1,5 +1,11 @@
 words2numbers <- function(text, lookup) {
-    return(sapply(text, function(x) which(lookup == x),USE.NAMES =FALSE))
+    rev <- list()
+
+    for(i in seq_along(lookup)) {
+        rev[lookup[i]] <- i
+    }
+    
+    return(as.numeric(rev[text]))
 }
 
 numbers2speech <- function(sequence, lookup) {
