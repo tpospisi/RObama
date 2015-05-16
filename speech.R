@@ -1,15 +1,16 @@
+require(microbenchmark)
 source("markov.R")
 
-data <- loadData()
-T <- trainMarkov(data$text, data$lookup)
+## Load 
+fileNames <- dir("Documents", full.names = TRUE)
+data <- LoadData(fileNames)
 
-speech <- sampleMarkov(T, 100, 1)
-words <- numbers2speech(speech, data$lookup)
+T <- TrainMarkov(data$text, data$lookup)
 
-speech <- function(n) {
-    nums <- sampleMarkov(T, n, 1)
-    words <- numbers2speech(nums, data$lookup)
+Speech <- function(n) {
+    nums <- SampleMarkov(T, n, 1)
+    words <- Numbers2Words(nums, data$lookup)
     return(words)
 }
 
-speech(20)
+Speech(100)

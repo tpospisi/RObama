@@ -1,6 +1,8 @@
-words2numbers <- function(text, lookup) {
-    rev <- list()
+Words2Numbers <- function(text, lookup) {
+    ## Convert words into a set of indices
 
+    ## Explicitly construct the reversed dictionary
+    rev <- list()
     for(i in seq_along(lookup)) {
         rev[lookup[i]] <- i
     }
@@ -8,22 +10,24 @@ words2numbers <- function(text, lookup) {
     return(as.numeric(rev[text]))
 }
 
-numbers2speech <- function(sequence, lookup) {
+Numbers2Words <- function(sequence, lookup) {
+    ## Convert sequence of indices into corresponding words
     return(paste0(lookup[sequence], collapse = " "))
 }
 
-loadData <- function() {
+LoadData <- function(fileNames) {
+    ## Read in the data from the given fileNames, convert to indices,
+    ## and return both indices and dictionary
+
     text <- c()
     
-    for(i in 1:8) {
-        ## Scan with pull seperate words for us
-        text <- c(text, scan(paste0("Documents/", i, ".txt"), "string"))
+    for(file in fileNames) {
+        ## Scan can separate words for us
+        text <- c(text, scan(file, "string"))
     }
 
     lookup <- unique(text)
-    text <- words2numbers(text, lookup)
+    text <- Words2Numbers(text, lookup)
     
     return(list(text = text, lookup = lookup))
 }
-    
-    
